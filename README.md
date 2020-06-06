@@ -1,37 +1,45 @@
-## Welcome to GitHub Pages
+## Developer notes
 
-You can use the [editor on GitHub](https://github.com/deeper-x/alberodeprezzo.github.io/edit/master/README.md) to maintain and preview the content for your website in Markdown files.
+In 2004, "developer notes" has been the name of my first personal blog, initially used as a repository for snippets, PL documentations, and other stuff related to computer science. One year later, with >150 posts, developer-notes has become a resource with tens of comments and insights a day. Now I need something similar: a public blog with technical documentation, easy to search, easy to organize and populate. 
+Each post has a title, a description, the code, an explanation and a series of tags in order to keep it easy to search. 
 
-Whenever you commit to this repository, GitHub Pages will run [Jekyll](https://jekyllrb.com/) to rebuild the pages in your site, from the content in your Markdown files.
 
-### Markdown
+### io.Writer interface
 
-Markdown is a lightweight and easy-to-use syntax for styling your writing. It includes conventions for
+As you know, the Writer interface is one of the most widely used. 
+It's based on one Write method, with a simple signature:
 
-```markdown
-Syntax highlighted code block
-
-# Header 1
-## Header 2
-### Header 3
-
-- Bulleted
-- List
-
-1. Numbered
-2. List
-
-**Bold** and _Italic_ and `Code` text
-
-[Link](url) and ![Image](src)
+```golang
+type Writer interface {
+    Write(p []byte) (n int, err error)
+}
 ```
+You find the Writer implementation in pattern like this
 
-For more details see [GitHub Flavored Markdown](https://guides.github.com/features/mastering-markdown/).
+```golang
+var b bytes.Buffer
+fmt.Fprintf(&b, "Size: %v", 100)
+fmt.Println(b.String()) // Output: 100
+```
+Explanation:
+1. bytes.Buffer has the Write() method. Therefore it implements the io.Writer interface
+2. fmt.Fprintf parameter type must be a Writer interface
 
-### Jekyll Themes
+Another case is the io.WriteString method:
 
-Your Pages site will use the layout and styles from the Jekyll theme you have selected in your [repository settings](https://github.com/deeper-x/alberodeprezzo.github.io/settings). The name of this theme is saved in the Jekyll `_config.yml` configuration file.
+```golang
+f, err := os.Open("some_file.txt")
+if err != nil {
+   doSome(err)
+}
 
-### Support or Contact
+defer f.Close()
 
-Having trouble with Pages? Check out our [documentation](https://help.github.com/categories/github-pages-basics/) or [contact support](https://github.com/contact) and we’ll help you sort it out.
+io.WriteString(f, "a string to write in file")
+```
+Explanation: 
+1. f is \*File, which implements the Writer interface
+2. handle error
+3. io.WriteString takes in input a io.Writer type. f respects this contract 
+
+
