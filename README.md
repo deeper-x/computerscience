@@ -4,7 +4,7 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 Each post has a title, a description, the code, an explanation and a series of tags in order to keep it easy to search. 
 
 
-### io.Writer interface
+### #go - io.Writer interface
 
 As you know, the Writer interface is one of the most widely used. 
 It's based on one Write method, with a simple signature:
