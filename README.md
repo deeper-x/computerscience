@@ -1,7 +1,6 @@
 ## Developer notes
 
-In 2004, "developer notes" has been the name of my first personal blog, initially used as a repository for snippets, PL documentations, and other stuff related to computer science. One year later, with >150 posts, developer-notes has become a resource with tens of comments and insights a day. Now I need something similar: a public blog with technical documentation, easy to search, easy to organize and populate. 
-Each post has a title, a description, the code, an explanation and a series of tags in order to keep it easy to search. 
+In 2004, "developer notes" has been the name of my first personal blog, initially used as a repository for my computer science thesis. One year later, with >150 posts, developer-notes has become a resource with tens of public comments and insights a day. Now I need something similar: a public repo where I can collect and organize snippets, documentation and PL stuff. I like the one-file blog format, where each topic is a post with a title, a description, the code and an explanation. 
 
 <hr />
 
