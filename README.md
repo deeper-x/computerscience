@@ -4,6 +4,38 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 
 <hr />
 
+### #go - Template, passing value
+
+You define a template from an HTML file, executing it passing data to it. Inside template, you define a variable in order to use a named label instead of the dot element {{ . }}
+
+The html file is:
+```html
+{{ $valuePassed := . }}
+The number is {{ $valuePassed }}.
+```
+
+The golang code is:
+```golang 
+var tpl *template.Template
+
+func main() {
+	tpl = template.Must(template.ParseFiles("index.html"))
+
+	err := tpl.ExecuteTemplate(os.Stdout, "index.html", 10)
+
+	if err != nil {
+		log.Println(err)
+	}
+}
+
+```
+Explanation:
+1. create a template from an HTML file, parsing it w/ ParseFiles, then creating it w/ Must
+2. load the template sending to a io.Writer, passing the template and the variable (that points to {{.}})
+
+
+<hr />
+
 ### #go - io.Writer interface
 
 As you know, the Writer interface is one of the most widely used. 
