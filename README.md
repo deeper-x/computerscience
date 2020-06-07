@@ -4,7 +4,7 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 
 <hr />
 
-### #go - Template, passing value
+### 2. #go - Template, passing value
 
 You define a template from an HTML file, executing it passing data to it. Inside template, you define a variable in order to use a named label instead of the dot element {{ . }}
 
@@ -38,7 +38,7 @@ Explanation:
 
 <hr />
 
-### #go - io.Writer interface
+### 1. #go - io.Writer interface
 
 As you know, the Writer interface is one of the most widely used. 
 It's based on one Write method, with a simple signature:
