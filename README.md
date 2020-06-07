@@ -29,7 +29,7 @@ func main() {
 		log.Println(err)
 	}
 }
-
+// Output: The number is 10.
 ```
 Explanation:
 1. create a template from an HTML file, parsing it w/ ParseFiles, then creating it w/ Must
