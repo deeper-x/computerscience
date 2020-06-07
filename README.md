@@ -9,10 +9,12 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 You define a template from an HTML file, executing it passing data to it. Inside template, you define a variable in order to use a named label instead of the dot element {{ . }}
 
 The html file is:
-~~~
+{% raw %}
+```
 {{ $valuePassed := . }}
 The number is {{ $valuePassed }}
-~~~
+```
+{% endraw %}
 
 The golang code is:
 ```golang 
