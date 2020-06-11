@@ -23,7 +23,7 @@ func DBCall() Account {
 }
 
 func main() {
-	tmpl, err := template.New("POS-result").Parse("Account {{.ID}}\nBalance: {{.Balance}}{{.Currency}}\n")
+	tmpl, err := template.New("POS-result").Parse("Account: {{.ID}}\nBalance: {{.Balance}}{{.Currency}}\n")
 
 	if err != nil {
 		log.Fatalf("Terminal error on preparation: %v", err)
@@ -35,6 +35,10 @@ func main() {
 		log.Fatalf("Terminal error on visualization: %v", err)
 	}
 }
+
+// Output
+// Account: 10298301
+// Balance: 150000€
 
 ```
 <hr />
