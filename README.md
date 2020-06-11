@@ -4,6 +4,42 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 
 <hr />
 
+### 3. #go - Template, text New/Execute
+
+text/template system needs to be defined with the New(), where you define the skeleton.
+Once defined the tmpl, you need to send an object to a io.Writer. 
+
+```golang
+// Account manager
+type Account struct {
+	ID       int64
+	Balance  float64
+	Currency string
+}
+
+// DBCall mock account resume
+func DBCall() Account {
+	return Account{ID: 10298301, Balance: 150000, Currency: "€"}
+}
+
+func main() {
+	tmpl, err := template.New("POS-result").Parse("Account {{.ID}}\nBalance: {{.Balance}}{{.Currency}}\n")
+
+	if err != nil {
+		log.Fatalf("Terminal error on preparation: %v", err)
+	}
+
+	err = tmpl.Execute(os.Stdout, DBCall())
+
+	if err != nil {
+		log.Fatalf("Terminal error on visualization: %v", err)
+	}
+}
+
+```
+<hr />
+
+
 ### 2. #go - Template, passing value
 
 You define a template from an HTML file, executing it passing data to it. Inside template, you define a variable in order to use a named label instead of the dot element {{ . }}
