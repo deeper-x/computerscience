@@ -4,7 +4,34 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 
 <hr />
 
-### 3. #go - Template, text New/Execute
+## #go - 3 different ways of outputting
+
+```golang
+func main() {
+	// 1
+	r := strings.NewReader("hello, world!\n")
+
+	_, err := io.Copy(os.Stdout, r)
+	if err != nil {
+		panic(err)
+	}
+
+	// 2
+	io.WriteString(os.Stdout, "hello, world!\n")
+
+	// 3
+	ns := strings.NewReader("hello, world!\n")
+	scanner := bufio.NewScanner(ns)
+	scanner.Split(bufio.ScanRunes)
+
+	for scanner.Scan() {
+		fmt.Printf("%s", scanner.Text())
+	}
+}
+```
+
+
+### #go - Template, text New/Execute
 
 text/template system needs to be defined with the New(), where you define the skeleton.
 Once defined the tmpl, you need to send an object to a io.Writer. 
@@ -44,7 +71,7 @@ func main() {
 <hr />
 
 
-### 2. #go - Template, passing value
+### #go - Template, passing value
 
 You define a template from an HTML file, executing it passing data to it. Inside template, you define a variable in order to use a named label instead of the dot element {{ . }}
 
@@ -78,7 +105,7 @@ Explanation:
 
 <hr />
 
-### 1. #go - io.Writer interface
+### #go - io.Writer interface
 
 As you know, the Writer interface is one of the most widely used. 
 It's based on one Write method, with a simple signature:
