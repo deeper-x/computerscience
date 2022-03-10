@@ -4,7 +4,7 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 
 <hr />
 
-## #go - 3 different ways of outputting
+### #go - 3 different ways of outputting
 
 ```golang
 func main() {
