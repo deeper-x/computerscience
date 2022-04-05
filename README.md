@@ -6,7 +6,7 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 
 ### #go - Generics: GcShape stenciling with dicts
 
-If you're a #golang dev, you probably agree w/ me it's time for you to start to build your own opinion about the way `parametric polymoprhism` is implemented in go, no matter of blog authors saying "Awesome!", "Slow!" or "Awful!". Just refer to the docs in the 1st comment, understand how it works, then read my list of personal thoughts:
+If you're a #golang dev, you probably agree w/ me it's time for you to start to build your own opinion about the way `parametric polymoprhism` is implemented in go, no matter of blog authors saying "Awesome!", "Slow!" or "Awful!". Just refer to [the docs](https://github.com/golang/proposal/blob/master/design/generics-implementation-dictionaries-go1.18.md), understand how it works, then read my list of personal thoughts:
 
 1) current G implementation is something "hybrid", a balance between compiling and runtime: is monomorphization-based, w/ virtual table support. Actually they're trying to get the best from compiler building mono-morphed "copies" for each generic type, then hitting runtime the less is possible passing types metadata in vTables. This is what they call "GcShape stenciling w/ dicts";
 
