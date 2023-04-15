@@ -10,13 +10,13 @@ If you're a #golang dev, you probably agree w/ me it's time for you to start to 
 
 1) current G implementation is something "hybrid", a balance between compiling and runtime: is monomorphization-based, w/ virtual table support. Actually they're trying to get the best from compiler building mono-morphed "copies" for each generic type, then hitting runtime the less is possible passing types metadata in vTables. This is what they call "GcShape stenciling w/ dicts";
 
-2) everything is grouped by its "GC shape", which is the underlying type (note: NOT type). So *pointers are grouped together, no matter of their referenced type. Yeap, Vtables to the rescue, but remember they live at runtime... and this *can* create some performance issue;
+2) everything is grouped by its "GC shape", which is the underlying type (note: NOT type). So *pointers are grouped together, no matter of their referenced type. Yeap, Vtables to the rescue, but remember they live at runtime... and this can create some performance issue;
 
 3) If you look at G like a code optimization, you can be disappointed, because you'll risk to move stuff from compile to run time;
 
 4) Finally you'll deduplicate that ugly code, but keep in mind it will be duplicated back at compile time, transparently;
 
-5) as a general rule, it can be better to avoid interface{}, just because they add a level of complexity layer, you can now finally avoid, as well as you can better enforcing type safety;
+5) as a general rule, it can be better to avoid interface{}, just because they add a level of complexity. You can now finally avoid, as well as you can better enforcing type safety;
 
 6) maybe it's not a good idea to rewrite your old interface-based APIs: w/ current G implementation you'll probably create a less-readable code, maybe less performant;
 
