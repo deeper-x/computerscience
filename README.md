@@ -4,6 +4,75 @@ In 2004, "developer notes" has been the name of my first personal blog, initiall
 
 <hr />
 
+### #python - Metaprogramming
+Defining a metaclass means setting the shape of created classes, based on it. In metaclass we define the `__new__` method, which is called at instantiation time, before the `__init__`. As you see, we define the `query` method and we link it to the `cls` instance returned by the `__new__` method. Every created class will have this `query` method, that inspect class attributes' name and call the desired method.
+
+```python
+from typing import Any, Callable,  TypeAlias, Type
+
+MSQL: TypeAlias = "MetaSQL"
+
+
+class MetaSQL(type):
+    query: Callable[[MSQL, str, str], str]
+
+    def __new__(cls: Type[MSQL], name: Any, bases: Any, attrs: Any) -> MSQL:
+        new_cls: MSQL = super().__new__(cls, name, bases, attrs)
+
+        def query(self: MSQL, action: str, target: str) -> str:
+            haystack: dict[str, Callable[[MSQL], str]] = {k: v for k, v in attrs.items() if k.startswith(action)}
+
+            res: str = f"action '{action}' not found"
+            needle: str = f"{action}_{target}"
+
+            if needle in haystack:
+                res = haystack[needle](self)
+
+            return res
+
+        new_cls.query = query
+
+        return new_cls
+
+
+class SQL(metaclass=MetaSQL):
+    query: Callable[[str, str], str]
+
+    def update_table_1(self) -> str:
+        return "UPDATE table_1 ..."
+
+    def update_table_2(self) -> str:
+        return "UPDATE table_2 ..."
+
+    def delete_table_3(self) -> str:
+        return "DELETE table_3 ..."
+
+    def create_table_4(self) -> str:
+        return "CREATE table_4 ..."
+
+
+sql = SQL()
+a: str = sql.query("update", "table_1")
+b: str = sql.query("update", "table_2")
+c: str = sql.query("delete", "table_3")
+d: str = sql.query("create", "table_4")
+e: str = sql.query("insert", "table 5")
+
+print(a)
+print(b)
+print(c)
+print(d)
+print(e)
+
+# OUTPUT:
+# UPDATE table_1 ...
+# UPDATE table_2 ...
+# DELETE table_3 ...
+# CREATE table_4 ...
+# action 'insert' not found
+```
+
+
 ### #go - Generics: GcShape stenciling with dicts
 
 If you're a #golang dev, you probably agree w/ me it's time for you to start to build your own opinion about the way `parametric polymoprhism` is implemented in go, no matter of blog authors saying "Awesome!", "Slow!" or "Awful!". Just refer to [the docs](https://github.com/golang/proposal/blob/master/design/generics-implementation-dictionaries-go1.18.md), understand how it works, then read my list of personal thoughts:
